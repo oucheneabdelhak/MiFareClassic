@@ -1,24 +1,30 @@
-# MiFARE Classic 1K Python Library
+MiFARE Classic 1K Python Library
 
 A clean, minimal Python library for MiFARE Classic 1K RFID card operations with Omnikey 5422 readers. Provides essential read/write/authentication functionality without unnecessary complexity.
+Features
 
-## Features
+    Simple API: Easy-to-use methods for card operations
 
-- **Simple API**: Easy-to-use methods for card operations
-- **PC/SC Compatible**: Works with standard PC/SC readers (tested with Omnikey 5422)
-- **Complete Operations**:
-  - Card connection and UID reading
-  - Block and sector reading/writing
-  - Authentication with Key A/Key B
-  - Memory dumping and analysis
-- **Security Tools**: Default key scanning and vulnerability assessment
-- **Comprehensive Example**: Detailed workflow demonstration included
+    PC/SC Compatible: Works with standard PC/SC readers (tested with Omnikey 5422)
 
-## Quick Start
+    Complete Operations:
 
-### Installation
+        Card connection and UID reading
 
-```bash
+        Block and sector reading/writing
+
+        Authentication with Key A/Key B
+
+        Memory dumping and analysis
+
+    Security Tools: Default key scanning and vulnerability assessment
+
+    Comprehensive Example: Detailed workflow demonstration included
+
+Quick Start
+Installation
+bash
+
 # Install required dependencies
 pip install pyscard
 
@@ -26,7 +32,26 @@ pip install pyscard
 git clone https://github.com/yourusername/mifare-classic-python.git
 cd mifare-classic-python
 
+Basic Usage
+python
 
+from mifare_classic import MifareClassic1K, MemoryManager, SecurityTools
+
+# Connect to card
+card = MifareClassic1K()
+
+# Get card UID
+uid = card.get_uid()
+print(f"Card UID: {uid}")
+
+# Load default key (FFFFFFFFFFFF)
+default_key = [0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF]
+card.load_key(0, default_key)
+
+# Authenticate and read block 4
+if card.authenticate(4, 0x60, 0):  # Key A
+    data = card.read_block(4)
+    print(f"Block 4 data: {data}")
 
 Complete Workflow
 
@@ -227,19 +252,3 @@ Security Considerations
 
 File Structure
 text
-
-mifare-classic-python/
-├── mifare_classic.py      # Main library with core classes
-├── example_workflow.py    # Comprehensive usage example
-├── README.md              # This file
-└── requirements.txt       # Python dependencies
-
-Contributing
-
-    Fork the repository
-
-    Create a feature branch
-
-    Add tests for new functionality
-
-    Submit a pull request
